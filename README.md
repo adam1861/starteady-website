@@ -207,3 +207,30 @@ This website template is created for Starteady AI agency. Feel free to modify an
 ---
 
 **Built with ❤️ for Starteady AI Agency** 
+
+## Airtable Integration with Vercel Serverless Function
+
+1. Place the provided `api/airtable-submit.js` file in your `api/` directory (at the project root).
+2. Set the following environment variables in your Vercel project settings:
+   - `AIRTABLE_API_KEY` (your Airtable API key)
+   - `AIRTABLE_BASE_ID` (your Airtable base ID)
+   - `AIRTABLE_TABLE_NAME` (your Airtable table name)
+3. From your frontend, submit form data to `/api/airtable-submit` using a POST request with JSON body:
+
+```js
+fetch('/api/airtable-submit', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name, email, company, service, message })
+})
+.then(res => res.json())
+.then(data => {
+  if (data.success) {
+    // Success logic
+  } else {
+    // Error logic
+  }
+});
+```
+
+See `AIRTABLE-SETUP.md` for more details. 

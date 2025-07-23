@@ -78,6 +78,20 @@ app.listen(3000, () => console.log('Server running on port 3000'));
 
 ---
 
+## Vercel Serverless Function Integration (Recommended)
+
+1. Add the provided `api/airtable-submit.js` file to your project root.
+2. In your Vercel dashboard, set these environment variables:
+   - `AIRTABLE_API_KEY`
+   - `AIRTABLE_BASE_ID`
+   - `AIRTABLE_TABLE_NAME`
+3. Update your frontend form submission to POST to `/api/airtable-submit`.
+4. On successful submission, handle the response as needed in your UI.
+
+See the README for code examples.
+
+---
+
 ## 4. Security Best Practices
 
 - **Never expose your Airtable API key in client-side code.**

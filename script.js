@@ -157,11 +157,20 @@ if (contactForm) {
         
         try {
             // Send to Airtable
-            await submitToAirtable(data);
-            
-            // Success
-            showNotification('Thank you! We\'ll get back to you soon.', 'success');
-            this.reset();
+            const response = await fetch('/api/airtable-submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: data.name, email: data.email, company: data.company, service: data.service, message: data.message })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                showNotification('Thank you! We\'ll get back to you soon.', 'success');
+                this.reset();
+            } else {
+                showNotification('Sorry, there was an error. Please try again.', 'error');
+            }
             
         } catch (error) {
             console.error('Form submission error:', error);
