@@ -9,7 +9,7 @@ window.AIRTABLE_CONFIG = {
     apiKey: 'pathIE4EukjjDi4ku.77737f5baaec7f20231954926a0bc1da59a988be7281ad49d3e162f8480d05d2',
     
     // The name of your table in Airtable
-    tableName: 'Clients Contacts',
+    tableName: 'Lead Contacts',
     
     // Field names in your Airtable table (should match exactly)
     fields: {
@@ -35,4 +35,6 @@ window.AIRTABLE_CONFIG = {
 // 4. Get your Base ID from the URL: https://airtable.com/appXXXXXXXXXXXXXX/tblXXXXXXXXXXXXXX
 // 5. Get your API Key from: https://airtable.com/account
 // 6. Replace the values above with your actual credentials
-// 7. Make sure your Airtable base is set to "Public" or you have proper CORS settings 
+// 7. IMPORTANT: Airtable does not allow public API access or CORS for browser requests.
+//    You must use a backend server or serverless function to securely interact with the Airtable API.
+//    Do NOT expose your API key in client-side code. See the README or AIRTABLE-SETUP.md for backend integration guidance. 
