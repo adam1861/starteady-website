@@ -566,6 +566,93 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Service Details Modal Logic
+const serviceDetails = [
+  {
+    title: 'AI Chatbots',
+    icon: '<i class="fas fa-comments"></i>',
+    description: 'Intelligent conversational agents that engage customers 24/7, answer questions, and qualify leads automatically.',
+    features: [
+      '24/7 Customer Support',
+      'Lead Qualification',
+      'Multi-language Support',
+      'Integration Ready'
+    ],
+    more: `<b>What you get:</b><br>• Custom chatbot flows<br>• Integration with your website or CRM<br>• Analytics dashboard<br>• Human handoff options<br><br><b>Use Cases:</b><br>Customer support, lead capture, appointment booking, FAQs, and more.`
+  },
+  {
+    title: 'Business Automation',
+    icon: '<i class="fas fa-cogs"></i>',
+    description: 'Streamline operations with AI-powered automation that handles repetitive tasks and improves efficiency.',
+    features: [
+      'Process Automation',
+      'Data Processing',
+      'Workflow Optimization',
+      'Cost Reduction'
+    ],
+    more: `<b>What you get:</b><br>• Automated workflows<br>• Integration with existing tools<br>• Custom triggers and actions<br>• Reporting & monitoring<br><br><b>Use Cases:</b><br>Invoice processing, HR onboarding, data entry, and more.`
+  },
+  {
+    title: 'Lead Generation',
+    icon: '<i class="fas fa-bullseye"></i>',
+    description: 'AI-driven lead generation systems that identify, qualify, and nurture prospects for your business.',
+    features: [
+      'Prospect Identification',
+      'Lead Scoring',
+      'Automated Nurturing',
+      'ROI Tracking'
+    ],
+    more: `<b>What you get:</b><br>• Targeted lead lists<br>• Automated outreach<br>• Lead scoring models<br>• CRM integration<br><br><b>Use Cases:</b><br>B2B prospecting, email campaigns, pipeline building, and more.`
+  },
+  {
+    title: 'Marketing AI',
+    icon: '<i class="fas fa-chart-line"></i>',
+    description: 'Enhance your marketing efforts with AI-powered tools for content creation, optimization, and analytics.',
+    features: [
+      'Content Optimization',
+      'Predictive Analytics',
+      'Personalization',
+      'Performance Tracking'
+    ],
+    more: `<b>What you get:</b><br>• AI content suggestions<br>• Campaign analytics<br>• Personalization engines<br>• A/B testing tools<br><br><b>Use Cases:</b><br>Ad optimization, content marketing, customer segmentation, and more.`
+  }
+];
+
+document.addEventListener('DOMContentLoaded', () => {
+  const serviceCards = document.querySelectorAll('.service-card');
+  const modal = document.getElementById('service-modal');
+  const modalBody = document.getElementById('service-modal-body');
+  const modalClose = document.querySelector('.service-modal-close');
+
+  serviceCards.forEach((card, idx) => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => {
+      const details = serviceDetails[idx];
+      modalBody.innerHTML = `
+        <div class="service-modal-icon">${details.icon}</div>
+        <h2 style="margin-top:0.5rem;">${details.title}</h2>
+        <p>${details.description}</p>
+        <ul style="margin-bottom:1.2rem;">${details.features.map(f=>`<li>${f}</li>`).join('')}</ul>
+        <div class="service-modal-more">${details.more}</div>
+      `;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (modal.style.display === 'flex' && (e.key === 'Escape' || e.key === 'Esc')) closeModal();
+  });
+});
+
 // Typing effect for hero title
 function typeWriter(element, text, speed = 100) {
     let i = 0;
