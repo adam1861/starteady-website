@@ -218,6 +218,8 @@
             <div class="contact-content">
                 <div class="contact-form">
                     <iframe class="airtable-embed" src="https://airtable.com/embed/appkHAwRgMos5OqMz/pag4LEtDtsmSq0LKO/form" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
+                    <div id="paypal-button-container" style="margin-top: 2rem;"></div>
+                    <script src="https://www.paypal.com/sdk/js?client-id=AYEY2R3qL5Vdemz-yBb939xcpcnNypRs8OzZzIoiXBBap"></script>
                 </div>
                 <div class="contact-info">
                     <h3>Get in Touch</h3>
@@ -247,7 +249,30 @@
         </div>
     </section>
 
-
+    <script src="https://www.paypal.com/sdk/js?client-id=AYEY2R3qL5Vdemz-yBb939xcpcnNypRs8OzZzIoiXBBap"></script>
+    <script>
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        return fetch('/api/paypal/create-payment', {
+          method: 'post',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ amount: '10.00' }) // Set your amount
+        }).then(res => res.json()).then(data => data.id);
+      },
+      onApprove: function(data, actions) {
+        return fetch('/api/paypal/execute-payment', {
+          method: 'post',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            paymentId: data.orderID,
+            payerId: data.payerID
+          })
+        }).then(res => res.json()).then(details => {
+          alert('Transaction completed!');
+        });
+      }
+    }).render('#paypal-button-container');
+    </script>
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -291,7 +316,7 @@
                     <h4>Connect</h4>
                     <div class="social-links">
                         <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="mailto:starteady.agency@gmail.com" aria-label="Gmail"><i class="fas fa-envelope"></i></a>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=starteady.agency@gmail.com" target="_blank" rel="noopener" aria-label="Gmail"><i class="fas fa-envelope"></i></a>
                         <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
