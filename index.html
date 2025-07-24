@@ -19,6 +19,7 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="shortcut icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAV89emLOH94CxRXvR3ykUmSNYoGr1UjInXzVghVY-RWyE-JZmtCWFKf8W7-w7L4qlRtfO9DOyzfsJI8M&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -218,8 +219,6 @@
             <div class="contact-content">
                 <div class="contact-form">
                     <iframe class="airtable-embed" src="https://airtable.com/embed/appkHAwRgMos5OqMz/pag4LEtDtsmSq0LKO/form" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
-                    <div id="paypal-button-container" style="margin-top: 2rem;"></div>
-                    <script src="https://www.paypal.com/sdk/js?client-id=AYEY2R3qL5Vdemz-yBb939xcpcnNypRs8OzZzIoiXBBap"></script>
                 </div>
                 <div class="contact-info">
                     <h3>Get in Touch</h3>
@@ -244,35 +243,17 @@
                             <p>Mon-Sun: 9AM-11PM</p>
                         </div>
                     </div>
+                    <div id="paypal-container-2D2LWAMXX3AU8" style="margin-top: 2rem;"></div>
+                    <script>
+                      paypal.HostedButtons({
+                        hostedButtonId: "2D2LWAMXX3AU8",
+                      }).render("#paypal-container-2D2LWAMXX3AU8")
+                    </script>
                 </div>
             </div>
         </div>
     </section>
 
-    <script src="https://www.paypal.com/sdk/js?client-id=AYEY2R3qL5Vdemz-yBb939xcpcnNypRs8OzZzIoiXBBap"></script>
-    <script>
-    paypal.Buttons({
-      createOrder: function(data, actions) {
-        return fetch('/api/paypal/create-payment', {
-          method: 'post',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ amount: '10.00' }) // Set your amount
-        }).then(res => res.json()).then(data => data.id);
-      },
-      onApprove: function(data, actions) {
-        return fetch('/api/paypal/execute-payment', {
-          method: 'post',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            paymentId: data.orderID,
-            payerId: data.payerID
-          })
-        }).then(res => res.json()).then(details => {
-          alert('Transaction completed!');
-        });
-      }
-    }).render('#paypal-button-container');
-    </script>
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
